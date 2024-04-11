@@ -1,225 +1,157 @@
-<x-app-layout :active="$active">
+<x-app-layout>
     <x-layout.page>
-        <x-slot name="titulo"> Encuestas </x-slot>
-        <x-slot name="boton">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalApplication">
-                <i class="bi-file-earmark-text-fill mr-1"></i> Encuesta global
-            </button>
-        </x-slot>
-
-        <x-slot name="indicadores"> </x-slot>
+        <x-slot name="titulo">Solicitudes de Evaluación</x-slot>
+        <x-slot name="boton"></x-slot>
+        <x-slot name="indicadores"></x-slot>
         <x-slot name="cuerpo">
-            <x-layout.card-table idEntries="datatableEntries" idPagination="datatablePagination">
-                <x-slot name="header">
-                    <x-layout.table-header id="datatableSearch"></x-layout.table-header>
-                </x-slot>
-                <x-slot name="header2"> </x-slot>
-                <x-slot name="table">
-                    <x-layout.table id="datatable" options='{
-                   "order": [],
-                    "info": {
-                    "totalQty": "#datatableWithPaginationInfoTotalQty"
-                    },
-                    "search": "#datatableSearch",
-                    "entries": "#datatableEntries",
-                    "pageLength": 12,
-                    "pagination": "datatablePagination"
-                    }'>
-                        <x-slot name="headers">
-                            <th>Nombre</th>
-                            <th>Inactivo/Activo</th>
-                            <th>Encuesta Global/Personalizada</th>
-                            <th>Acciones</th>
-                        </x-slot>
-                    </x-layout.table>
-                </x-slot>
-            </x-layout.card-table>
-        </x-slot>
-        <x-slot name="modals">
-            @include('pages.encuestas.modal_application')
+            <div>
+                <h2>EVALUACIÓN</h2>
+                <form action="/guardar" method="POST">
+                    @csrf
+
+                    <div>
+                        <label for="tipo_evaluacion">Tipo de Evaluación:</label>
+                        <select id="tipo_evaluacion" name="tipo_evaluacion">
+                            <option value="evaluacion">Seleccione</option>
+                            <option value="evaluacion1">Evaluación 1</option>
+                            <option value="evaluacion2">Evaluación 2</option>
+                            <option value="evaluacion3">Evaluación 3</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="vendedor">VENDEDOR:</label>
+                        <select id="vendedor" name="vendedor">
+                            <option value="vendedor">Seleccione</option>
+                            <option value="vendedor1">Vendedor 1</option>
+                            <option value="vendedor2">Vendedor 2</option>
+                            <option value="vendedor3">Vendedor 3</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <br>
+                        <h2>DATOS DEL CLIENTE</h2>
+
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre">
+                        </div>
+
+                        <div>
+                            <label for="email">Correo:</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+
+                        <div>
+                            <label for="telefono">Móvil:</label>
+                            <input type="tel" id="telefono" name="telefono">
+                        </div>
+                    </div>
+
+                    <br>
+                    <h2>VEHICULO DE INTERES </h2>
+
+                    <div>
+                        <label for="año">Año:</label>
+                        <input type="text" id="año" name="año">
+                    </div>
+
+                    <div>
+                        <label for="vehiculo">Vehiculo:</label>
+                        <input type="text" id="vehiculo" name="vehiculo">
+                    </div>
+
+                    <h2>VEHICULO PARA EVALUACIÓN </h2>
+
+                    <div>
+                        <label for="vin">VIN:</label>
+                        <input type="text" id="vin" name="vin">
+                    </div>
+
+                    <div>
+                        <label for="expectativa">Expectativa del Cliente:</label>
+                        <input type="text" id="expectativa" name="expectativa">
+                    </div>
+
+                    <div>
+                        <label for="servicio">¿Tiene el historial de Servicio?</label>
+                        <select id="servicio" name="servicio">
+                            <option value="servicio">Seleccione</option>
+                            <option value="servicio">Si</option>
+                            <option value="servicio">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="historial">¿El historial del servicio contiene...?</label>
+                        <select id="historial" name="historial">
+                            <option value="historial">Seleccione</option>
+                            <option value="historial1">Si</option>
+                            <option value="historial2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="historial">¿...?</label>
+                        <select id="historial" name="historial">
+                            <option value="historial">Seleccione</option>
+                            <option value="historial1">Si</option>
+                            <option value="historial2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="manual">¿Tiene el manual de Propietario?</label>
+                        <select id="manual" name="manual">
+                            <option value="manual">Seleccione</option>
+                            <option value="manual1">Si</option>
+                            <option value="manual2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="duplicado">¿Usted tiene el duplicado de llaves?</label>
+                        <select id="duplicado" name="duplicado">
+                            <option value="duplicado">Seleccione</option>
+                            <option value="duplicado1">Si</option>
+                            <option value="duplicado2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="siniestro">¿Tuvo algun siniestro?</label>
+                        <select id="siniestro" name="siniestro">
+                            <option value="siniestro">Seleccione</option>
+                            <option value="siniestro1">Si</option>
+                            <option value="siniestro2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="dueño">¿Es el primer dueño?</label>
+                        <select id="dueño" name="dueño">
+                            <option value="dueño">Seleccione</option>
+                            <option value="dueño1">Si</option>
+                            <option value="dueño2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="financiado">¿El vehiculo esta financiado?</label>
+                        <select id="financiado" name="financiado">
+                            <option value="financiado">Seleccione</option>
+                            <option value="financiado1">Si</option>
+                            <option value="financiado2">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="observaciones">Observaciones:</label>
+                        <input type="text" id="observaciones" name="observaciones">
+                    </div>
+                </form>
+            </div>
         </x-slot>
     </x-layout.page>
-    @push('js')
-        <script>
-            window.addEventListener("load",function(event) {
-
-                new HSAddField('.js-add-field', {
-                    addedField: field => {
-                        HSCore.components.HSTomSelect.init(field.querySelector('.js-select-dynamic'))
-                    }
-                })
-
-                HSCore.components.HSSortable.init('.js-sortable',{
-                    group: 'listGroup',
-                    animation: 150,
-                    onEnd: function (evt) {
-                        let items = evt.to.children;// Get target's children
-                        let valores = [];
-                        let id_tratamiento = '';
-                        $(items).each(function(){
-                            valores.push(new Array($(this).attr('data-id2')));
-                            id_sucursal = $(this).attr('data-id3');
-                        });
-                        $.ajax({
-                            url: '{{ url('order_question') }}',
-                            type: "POST",
-                            data: '${{ $inputs['application']->id_sucursal }}='+id_sucursal+'&${{ $inputs['application']->pregunta }}='+valores,
-                            dataType: 'json',
-                            beforeSend: function(){
-                                loading();
-                            },
-                            success: function (data) {
-                                close_loading();
-                                if(data.respuesta) {
-                                    preguntas(data.preguntas);
-                                    tata.success( 'Éxito',data.mensaje );
-                                }
-                            },
-                            error: function (data) {
-                                close_loading();
-                                errorSwal('Error',err);
-                            }
-                        });
-                    }
-                })
-
-                HSCore.components.HSTomSelect.init('.js-select')
-
-                HSCore.components.HSDatatables.init($('#datatable'), {
-                    language: {
-                        zeroRecords: `<div class="text-center p-4">
-                      <img class="mb-3" src="{{ asset('assets') }}/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
-                      <img class="mb-3" src="{{ asset('assets') }}/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
-                    <p class="mb-0">No hay información para mostrar</p>
-                    </div>`,
-                        processing: `<div id="users-table_processing" class="dataTables_processing">
-                        <div class="spinner-border text-primary spinner-datatable-processing" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="d-block">Cargando información</div>
-                    </div>`,
-                    },
-                    processing: true,
-                    ajax: '{{ url('encuestasL') }}',
-                    columns: [{
-                        render: function (data, type, row) {
-                            return ` <div class="d-flex align-items-center" href="user-profile.html">
-                                    <div class="avatar avatar-soft-primary avatar-circle">
-                                      <span class="avatar-initials">${row.nombre[0]}</span>
-                                    </div>
-                                    <div class="ms-3">
-                                      <span class="d-block h5 text-inherit mb-0">${row.nombre}</span>
-                                    </div>
-                                </div>`
-                        }
-                        },{render: function (data, type, row) {
-
-                            return `<div class="form-check form-switch form-switch-between mb-4">
-                                        <label class="form-check-label">Inactivo</label>
-                                        <input type="checkbox" class="form-check-input" data-id="${row.id}" data-id3="1" ${(row.activo == 1) ? 'checked':''}>
-                                        <label class="form-check-label">Activo</label>
-                                    </div>`
-                        }
-                        },{render: function (data, type, row) {
-
-                            return `<div class="form-check form-switch form-switch-between mb-4">
-                                        <label class="form-check-label">Global</label>
-                                        <input type="checkbox" class="form-check-input" data-id="${row.id}"  data-id3="2" ${(row.encuesta == 1) ? 'checked':''}>
-                                        <label class="form-check-label">Personalizada</label>
-                                    </div>`
-                        }
-                        },{render: function (data, type, row) {
-                            return `<button class="btn btn-lg btn-white dropdown-toggle" type="button" id="dropdownMenuButtonClickAnimation" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                                        Opciones
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonClickAnimation">
-                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalTratamiento" data-url="{{ url('tratamientos') }}/${row.id}/edit"><i class="bi bi-qr-code" style="margin-right: 5px;"></i>  Codigo</a>
-                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalApplication" data-url="{{ url('preguntas') }}/${row.id}" data-uuid="${row.id}"><i class="bi bi-file-earmark-text-fill" style="margin-right: 5px;"></i>  Encuesta personlizada</a>
-                                      </div>`
-                        },
-                    }]
-                });
-                const tom_select = HSCore.components.HSTomSelect.getItems();
-                const datatable = HSCore.components.HSDatatables.getItem('datatable');
-
-                HSBsValidation.init('.js-validate', {
-                    onSubmit: data => {
-                        let fun = data.form.dataset.js ?? 'success'
-                        data.event.preventDefault()
-                        HSCallStore.init(data,eval(fun))
-                    }
-                })
-
-                const success = (data) => {
-                    if(data.respuesta) {
-                        $('#ModalTratamiento').modal('hide');
-                        tata.success('Éxito', data.mensaje);
-                        datatable.ajax.reload();
-                    }
-                }
-
-                $("button[data-bs-target]").on('click', function(event){
-                    $.each(tom_select, function(index, value){
-                        if(value.inputId != 'datatableEntries'){
-                            tom_select[index].clear()
-                        }
-                    })
-                    clear($($(this).data('bs-target')));
-                });
-
-                $("table").on("click","[data-bs-target='#ModalTratamiento']",function(){
-                    let url = $(this).data('url')
-                    clear($($(this).data('bs-target')))
-                    HSCallGet.init(url,get)
-                })
-
-                $("table").on("click","button.rmv",function(){
-                    HSCallDelete.init($(this),del)
-                })
-
-                $("table").on("change",".form-check-input",function(){
-                    let id = $(this).attr('data-id');
-                    let che =  $(this).is(":checked")? 1: 0
-                    let url = (($(this).attr('data-id3') == 1) ? '{{ url('encuestasA') }}' : '{{ url('encuestasG') }}' );
-
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: 'id='+id+'&check='+che,
-                        dataType: 'json',
-                        beforeSend: function(){
-                            loading();
-                        },
-                        success: function (data) {
-                            close_loading();
-                            if(data.respuesta) {
-                                tata.success( 'Éxito',data.mensaje );
-                                datatable.ajax.reload();
-                            }
-                        },
-                        error: function (data) {
-                            close_loading();
-                            errorSwal('Error',err);
-                        }
-                    });
-                   
-                });
-
-                const get = (data) =>{
-                    $.each(data.posts, function(index, value) {
-                        
-                        $('#'+index).val(value);
-                        
-                    });
-                }
-
-                const del = (data) =>{
-                    datatable.ajax.reload();
-                    tata.success('Éxito', "Eliminado correctamente");
-                }
-
-                @stack('js_modulo')
-            });
-        </script>
-    @endpush
 </x-app-layout>

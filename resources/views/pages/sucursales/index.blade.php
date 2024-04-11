@@ -1,190 +1,282 @@
-<x-app-layout :active="$active">
+<x-app-layout>
     <x-layout.page>
-        <x-slot name="titulo"> Gestión de sucursales </x-slot>
-        <x-slot name="boton">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalClientes">
-                <i class="bi-plus mr-1"></i> Agregar empresa
-            </button>
-        </x-slot>
-
-        <x-slot name="indicadores"> </x-slot>
+        <x-slot name="titulo">Con Precio</x-slot>
+        <x-slot name="boton"></x-slot>
+        <x-slot name="indicadores"></x-slot>
         <x-slot name="cuerpo">
-            <x-layout.card-table idEntries="datatableEntries" idPagination="datatablePagination">
-                <x-slot name="header">
-                    <x-layout.table-header id="datatableSearch"></x-layout.table-header>
-                </x-slot>
-                <x-slot name="header2"> </x-slot>
-                <x-slot name="table">
-                    <x-layout.table id="datatable" options='{
-                   "order": [],
-                    "info": {
-                    "totalQty": "#datatableWithPaginationInfoTotalQty"
-                    },
-                    "search": "#datatableSearch",
-                    "entries": "#datatableEntries",
-                    "pageLength": 12,
-                    "pagination": "datatablePagination"
-                    }'>
-                        <x-slot name="headers">
-                            <th>Nombre</th>
-                            <th>Dirección</th>
-                            <th>Encargado</th>
-                            <th>Acciones</th>
-                        </x-slot>
-                    </x-layout.table>
-                </x-slot>
-            </x-layout.card-table>
-        </x-slot>
-        <x-slot name="modals">
-            @include('pages.sucursales.modal_add')
-        </x-slot>
-
-    </x-layout.page>
-    @push('js')
-    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=quarterly&region=MX&language=es&key={{ ENV('API_GOOGLE_MAPS')}}&libraries=places"></script>
-    <script type="text/javascript" src="//googlearchive.github.io/js-marker-clusterer/src/markerclusterer.js"></script>
-        <script>
-            HSCore.components.HSMask.init('.js-input-mask')
-            
-            window.addEventListener("load",function(event) {
-                let lat_geo;
-                let long_geo;
-                let lat_org = '20.122400152964854';
-                let long_org = '-98.73567825342464';
-
-                $.each(catalogos().estados, function(index, value) {
-                    $('#{{ $inputs["empresas"]->id_estado }}').append(`<option value="${value.id}" >${value.estado}</option>`);
-                })        
-
-                const municipio = catalogos().municipios
-                let asesores = catalogos().asesores;
-                $.each(asesores, function(index, value) {
-                    $('#{{ $inputs['empresas']->id_encargado }}').append(`<option value="${value.id}" >${value.name + ' ' + value.apellidos}</option>`);
-                })
-                
-                HSCore.components.HSTomSelect.init('.js-select')
-
-                HSCore.components.HSDatatables.init($('#datatable'), {
-                    language: {
-                        zeroRecords: `<div class="text-center p-4">
-                      <img class="mb-3" src="{{ asset('assets') }}/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
-                      <img class="mb-3" src="{{ asset('assets') }}/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
-                    <p class="mb-0">No hay información para mostrar</p>
-                    </div>`,
-                        processing: `<div id="users-table_processing" class="dataTables_processing">
-                        <div class="spinner-border text-primary spinner-datatable-processing" role="status">
-                            <span class="sr-only">Loading...</span>
+            <div>
+                <form action="/guardar" method="POST">
+                    @csrf
+                    <div>
+                        <label for="tipo_empresa">Empresa:</label>
+                        <select id="tipo_empresa" name="tipo_empresa">
+                            <option value="empresa">Seleccione</option>
+                            <option value="empresa1">Todas</option>
+                            <option value="empresa2">Distribuidora Volkswagen de Pachuca, S.A.</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="estatus">Estatus:</label>
+                        <select id="estatus" name="estatus">
+                            <option value="estatus">Todos</option>
+                            <option value="estatus1">Adquirido Grupo</option>
+                            <option value="estatus2">Caducada</option>
+                            <option value="estatus3">Caducado</option>
+                            <option value="estatus4">Cancelado</option>
+                            <option value="estatus5">Comprado</option>
+                            <option value="estatus6">Can precio</option>
+                            <option value="estatus7">Disp/Grupo</option>
+                            <option value="estatus8">Enviado a Reventa</option>
+                            <option value="estatus9">Integrando</option>
+                            <option value="estatus10">Por fijar precio</option>
+                            <option value="estatus11">Reventa/otros</option>
+                            <option value="estatus12">Reventa/Outros</option>
+                            <option value="estatus13">Solicitada</option>
+                            <option value="estatus13">Vendido</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <br>
+                        <h2>Busqueda</h2>
+                        <div>
+                            <label for="busqueda">Busqueda:</label>
+                            <input type="text" id="busqueda" name="busqueda">
                         </div>
-                        <div class="d-block">Cargando información</div>
-                    </div>`,
+                        <br>
+                        <div>
+                            <label for="año">Año:</label>
+                            <input type="año" id="año" name="año">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="marca">Marca:</label>
+                            <input type="text" id="marca" name="marca">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="modelo">Modelo:</label>
+                            <input type="text" id="modelo" name="modelo">
+                        </div>
+                        <br>
+                        <div>
+                            <label for="version">Version:</label>
+                            <input type="text" id="version" name="version">
+                        </div>
+                        <br>
+                        <div>
+                            <input type="checkbox" id="vehiculos_recibidos" name="vehiculos_recibidos">
+                            <label for="vehiculos_recibidos">Vehiculos Recibidos</label>
+                            <input type="checkbox" id="cotizacion_no_enviada" name="cotizacion_no_enviada">
+                            <label for="cotizacion_no_enviada"> Cotizacion no enviada</label>
+                        </div>
+                        <br>
+                        <br>
+                        <div>
+                            <label for="acciones">Acciones en masa:</label>
+                            <select id="acciones" name="acciones">
+                                <option value="acciones">Seleccione</option>
+                                <option value="acciones1">1</option>
+                            </select>
+                        </div>
+                        <br>
+                        <!--Tabla-->
+                        <div>
+                            <h2>Tabla de Resultados</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Imagen    |</th>
+                                        <th>Descripcion    |</th>
+                                        <th>Estatus   |</th>
+                                        <th>Empresa    |</th>
+                                        <th>Fecha    |</th>
+                                        <th>Solicitante / Evaluador / Fijador de precio   |</th>
+                                        <th>Reparaciones    |</th>
+                                        <th>Evaluacion    |</th>
+                                        <th>Total   |</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Descripción</td>
+                                        <td>Activo</td>
+                                        <td>Empresa A</td>
+                                        <td>2024-04-09</td>
+                                        <td>Juan Pérez</td>
+                                        <td>Reparación 1</td>
+                                        <td>Buena</td>
+                                        <td>$1000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {{-- VENTA EXPRESS --}}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2>VENTAS EXPRESS</h2>
+            <div>
+                <label for="estatus">Estatus:</label>
+                <select id="estatus" name="estatus">
+                    <option value="estatus">Todos</option>
+                    <option value="estatus1">Por Resolver</option>
+                    <option value="estatus2">En proceso</option>
+                    <option value="estatus3">Aprobado</option>
+                    <option value="estatus4">Cerrado</option>
+                    <option value="estatus5">Aguardando Venta</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="buscar">Buscar:</label>
+                <input type="text" id="buscar" name="buscar">
+            </div>
+            <br>
+            <div>
+                <label for="vendedor">Vendedor:</label>
+                <input type="text" id="vendedor" name="vendedor">
+            </div>
+            <br>
+            <div>
+                <label for="evaluador">Evaluador:</label>
+                <input type="text" id="evaluador" name="evaluador">
+            </div>
+            <br>
+            <div>
+                <label for="fecha_inicial">Fecha Inicial:</label>
+                <input type="date" id="fecha_inicial" name="fecha_inicial">
+            </div>
+            <br>
+            <div>
+                <label for="fecha_final">Fecha Final:</label>
+                <input type="date" id="fecha_final" name="fecha_final">
+            </div>
+
+            {{-- EVALUACION ONLINE --}}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2>EVALUACION ONLINE</h2>
+            <div>
+                <label for="evaluacion">Link del Grupo:</label>
+                <input type="text" id="evaluacion" name="evaluacionr">
+            </div>
+
+            {{-- INFORMES --}}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2>ANALISIS DE COMPRAS</h2>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Hola</title>
+                <!-- Agrega la biblioteca ApexCharts.js -->
+                <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+            </head>
+            <body>
+            <!-- Aquí es donde se renderizará el gráfico -->
+            <div id="chart"></div>
+
+            <script>
+                // Datos para el gráfico de barras
+                var options = {
+                    chart: {
+                        type: 'bar'
                     },
-                    processing: true,
-                    ajax: '{{ url('sucursalesL') }}',
-                    columns: [{
-                        render: function (data, type, row) {
-                            let perfil = `<div class="avatar avatar-soft-primary avatar-circle">
-                                            <span class="avatar-initials">${row.nombre[0]}</span>
-                                        </div>`
-                            if(row.imagen_perfil){
-                                perfil = `<span class="avatar avatar-circle">
-                                            <img class="avatar-img" src="{{ url('documentos') }}/${row.imagen_perfil}" alt="Image Description">
-                                        </span>`
-                            }
-                            return ` <div class="d-flex align-items-center" href="user-profile.html">
-                                        ${perfil}
-                                        <div class="ms-3">
-                                            <span class="d-block h5 text-inherit mb-0">${ row.nombre }</span>
-                                        </div>
-                                    </div>`
-                        }},{render: function (data, type, row) {
-                            return `<span class="d-block h5 mb-0">${row.calle}</span>`
-                        }},{render: function (data, type, row) {
-                            return `<span class="d-block h5 mb-0">${ row.encargado }</span>`
-                        }},{render: function (data, type, row) {
-                            return `<a class="btn btn-sm btn-primary" href="{{ url('perfil_cliente') }}/${row.id}" target="_blank"> <i class="bi bi-person-circle"></i> Ver</a>
-                                    <button class="btn btn-lg btn-white dropdown-toggle" type="button" id="dropdownMenuButtonClickAnimation" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                                        Opciones
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonClickAnimation">
-                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalClientes" data-url="{{ url("empresas") }}/${row.id}/edit"><i class="bi bi-pencil-fill" style="margin-right: 5px;"></i>  Editar</a>
-                                        <div class="dropdown-divider"></div>
-                                        <button class="dropdown-item text-danger rmv" data-id="${row.id}" data-url="{{ url("empresas") }}/${row.id}"><i class="bi bi-trash3 text-danger" style="margin-right: 5px;"></i>  Eliminar</button>
-                                      </div>`
-                        },
-                    }]
-                });
-                const tom_select = HSCore.components.HSTomSelect.getItems()
-                const datatable = HSCore.components.HSDatatables.getItem('datatable')
-
-                HSBsValidation.init('.js-validate', {
-                    onSubmit: data => {
-                        let fun = data.form.dataset.js ?? 'success'
-                        data.event.preventDefault()
-                        HSCallStore.init(data,eval(fun))
+                    series: [{
+                        name: 'Sales',
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 1,1, 2, 3, 4, 5, 6, 7, 8, .9,1, 2, 3, 4, 5, 6, 7, 8, 4]
+                    }],
+                    xaxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Jan1', 'Feb1', 'Mar1', 
+                        'Apr1', 'May1', 'Jun1', 'Jul1', 'Aug1', 'Sep1','Jan2', 'Feb2', 'Mar2', 'Apr2', 'May2', 'Jun2', 'Jul2', 'Aug2', 'Sep2']
                     }
-                })
+                };
 
-                const success = (data) => {
-                    if(data.respuesta) {
-                        $('#ModalClientes').modal('hide');
-                        tata.success('Éxito', data.mensaje);
-                        datatable.ajax.reload();
-                        localStorage.clear();
-                        catalogos();
-                    }
-                }
+                // Crear el gráfico
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
 
-                $("button[data-bs-target]").on('click', function(event){
-                    let nuevaPosicion = new google.maps.LatLng(lat_org, long_org);
-                    marker_0.setPosition(nuevaPosicion);
-                    map.setCenter(nuevaPosicion);
-                    clear($($(this).data('bs-target')), tom_select);
-                });
-
-
-                $("table").on("click","[data-bs-target='#ModalClientes']",function(){
-                    let url = $(this).data('url')
-                    clear($($(this).data('bs-target')),tom_select)
-                    HSCallGet.init(url,get)
-                })
-
-                $("table").on("click","button.rmv",function(){
-                    HSCallDelete.init($(this),del)
-                })
-
-                const del = (data) =>{
-                    datatable.ajax.reload();
-                    tata.success('Éxito', "Eliminado correctamente");
-                }
-
-                // function obtenerCoordenadas(codigoPostal) {
-                //     // URL de la API de OpenCage Data
-                //     let apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${codigoPostal}&key=c42b7e0594d240b2bb2ccb41bd2da7b2`;
-
-                //     // Realiza la solicitud Ajax a la API
-                //     $.ajax({
-                //         url: apiUrl,
-                //         method: 'GET',
-                //         dataType: 'json',
-                //         success: function(data) {
-                //             let cod = 'ISO_3166-1_alpha-2';
-                //             $.each(data.results, function(index, value) {
-                //                 if(value.components['ISO_3166-1_alpha-2'] == 'MX'){
-                //                     let lat_geo = data.results[index].geometry.lat;
-                //                     let long_geo = data.results[index].geometry.lng;
-                    
-                //                 }
-                //             })
-                //         },
-                //         error: function(error) {
-                //             console.error("Error en la solicitud:", error);
-                //         }
-                //     });
-                // }
-
-                // obtenerCoordenadas(42300);
-                @stack('js_modulo')
-            });
-        </script>
-    @endpush
+                // Renderizar el gráfico
+                chart.render();
+            </script>
+            </body>
+            </html>
+            <!--Tabla-->
+            <div>
+                <h2></h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Marca |</th>
+                            <th>Con precio    |</th>
+                            <th>Comprados   |</th>
+                            <th>Reventa   |</th>
+                        </tr>
+                     </thead>
+                      <tbody>
+                        <tr>
+                            <td>CHEVROLET</td>
+                            <td>4</td>
+                            <td>- </td>
+                            <td>1</td>
+                                        
+                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        </x-slot>
+    </x-layout.page>
 </x-app-layout>
