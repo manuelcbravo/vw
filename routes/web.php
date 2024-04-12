@@ -94,6 +94,26 @@ Route::group(['middleware' => 'auth'], function () {
      Route::post('llamar_fin', 'CallsController@setFinLlamadas')->name('llamar_fin');
      /////////////////////////////////////////////////////////
 
+      // SOLICITAR EVALUACION //
+    Route::get('/solicitar_evaluacion', 'SolicitarEvaluacionController@index')->name('solicitar_evaluacion.index');
+    // EVALUACION //
+    Route::get('/evaluacion', 'EvaluacionController@index')->name('evaluacion.index');
+    // VENTA EXPRESS //
+    Route::get('/venta_express', 'VentaExpressController@index')->name('venta_express.index');
+    // VENTA ONLINE //
+    Route::get('/venta_online', 'VentaOnlineController@index')->name('venta_online.index');
+
+     // cuentas por pagar y cuentas por cobrar //
+     Route::get('/analisis_de_capturas', 'InformesController@index_analisis_de_capturas')->name('analisis_de_capturas');
+     Route::get('/con_precio', 'InformesController@index_con_precio')->name('con_precio');
+     Route::get('/evaluaciones_modificadas', 'InformesController@index_evaluaciones_modificadas')->name('evaluaciones_modificadas');
+     Route::get('/evaluaciones_por_venta', 'InformesController@index_evaluaciones_por_venta')->name('evaluaciones_por_venta');
+     Route::get('/ofertas', 'InformesController@index_ofertas')->name('ofertas');
+     Route::get('/tiempo_de_masa', 'InformesController@index_tiempo_de_masa')->name('tiempo_de_masa');
+     Route::get('/tipo_de_evaluacion', 'InformesController@index_tipo_de_evaluacion')->name('tipo_de_evaluacion');
+    
+
+
 
     ////////////////////////// archivos /////////////////////////////
     Route::resource('archivosM', 'TblArchivoController')->name('archivosM','*');

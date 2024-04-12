@@ -37,24 +37,46 @@
                     </div>
 
                     <div class="nav-item">
-                        <a class="nav-link dropdown-toggle {{ ($activePage == 'encuestas' || $activePage == 'categorias')? '': 'collapsed'}}" href="#navbarMenuBlog" role="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuBlog" aria-expanded=" {{ ($activePage == 'encuestas' || $activePage == 'respuestas')? 'true': 'false'}}" aria-controls="navbarMenuBlog">
-                            <i class="bi-file-richtext nav-icon"></i>
-                            <span class="nav-link-title">Encuestas</span>
+                        <a class="nav-link {{ ($activePage == 'solicitar_evaluacion')? 'active': ''}}" href="{{ route('solicitar_evaluacion.index') }}" data-placement="left">
+                            <i class="bi-house nav-icon"></i>
+                            <span class="nav-link-title">Solicitar Evaluacion</span>
                         </a>
-
-                        <div id="navbarMenuBlog" class="nav-collapse collapse  {{ ($activePage == 'encuestas' || $activePage == 'respuestas')? 'show': ''}}" data-bs-parent="#navbarVerticalMenuPagesMenu">
-                            <a class="nav-link {{ ($activePage == 'encuestas')? 'active': ''}}" href="{{ route('encuestas.index') }}">Encuestas</a>
-                            <a class="nav-link {{ ($activePage == 'respuestas')? 'active': ''}}" href="{{ route('respuestas.index') }}">Respuestas</a>
-                        </div>
                     </div>
 
                     <div class="nav-item">
-                        <a class="nav-link {{ ($activePage == 'empresas')? 'active': ''}}" href="{{ route('sucursales.index') }}" data-placement="left">
+                        <a class="nav-link {{ ($activePage == 'evaluacion')? 'active': ''}}" href="{{ route('evaluacion.index') }}" data-placement="left">
                             <i class="bi-house nav-icon"></i>
-                            <span class="nav-link-title">Sucursales</span>
+                            <span class="nav-link-title">Evaluaciones</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link {{ ($activePage == 'venta_espress')? 'active': ''}}" href="{{ route('venta_express.index') }}" data-placement="left">
+                            <i class="bi-house nav-icon"></i>
+                            <span class="nav-link-title">Venta Express</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link {{ ($activePage == 'venta_online')? 'active': ''}}" href="{{ route('venta_online.index') }}" data-placement="left">
+                            <i class="bi-house nav-icon"></i>
+                            <span class="nav-link-title">Venta Online</span>
                         </a>
                     </div>
                     
+                    <div class="nav-item">
+                        <a class="nav-link dropdown-toggle {{ ($activePage == 'analisis_de_capturas' || $activePage == 'con_precio' || $activePage == 'evaluaciones_modificadas' || $activePage == 'evaluaciones_por_venta' || $activePage == 'informes_de_los_vehiculos' || $activePage == 'ofertas' || $activePage == 'tipo_de_mesa'|| $activePage == 'tipo_de_evaluaciones')? '': 'collapsed'}}" href="#navbarMenuanalisis_de_capturas" role="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuanalisis_de_capturas" aria-expanded=" {{ ($activePage == 'analisis_de_capturas' || $activePage == 'con_precio')? 'true': 'false'}}" aria-controls="navbarMenuanalisis_de_capturas">
+                            <i class="bi-cart4 nav-icon"></i>
+                            <span class="nav-link-title">Informes</span>
+                        </a>
+                        <div id="navbarMenuanalisis_de_capturas" class="nav-collapse collapse  {{ ($activePage == 'analisis_de_capturas'  || $activePage == 'con_precio' || $activePage == 'evaluaciones_modificadas'|| $activePage == 'evaluaciones_por_venta')? 'show': ''}}" data-bs-parent="#navbarVerticalMenuPagesMenu">
+                            <a class="nav-link {{ ($activePage == 'analisis_de_capturas')? 'active': ''}}" href="{{ route('analisis_de_capturas') }}">Analisis de Capturas</a>
+                            <a class="nav-link {{ ($activePage == 'con_precio')? 'active': ''}}" href="{{ route('con_precio') }}">Con Precio</a>
+                            <a class="nav-link {{ ($activePage == 'evaluaciones_modificadas')? 'active': ''}}" href="{{ route('evaluaciones_modificadas') }}">Evaluaciones Modificadas</a>
+                            <a class="nav-link {{ ($activePage == 'evaluaciones_por_venta')? 'active': ''}}" href="{{ route('evaluaciones_por_venta') }}">Evaluaciones Por Venta</a>
+                            <a class="nav-link {{ ($activePage == 'ofertas')? 'active': ''}}" href="{{ route('ofertas') }}">Ofertas</a>
+                        </div>
+                    </div>
                     {{-- <div class="nav-item">
                         <a class="nav-link dropdown-toggle {{ ($activePage == 'post' || $activePage == 'categorias'|| $activePage == 'tags')? '': 'collapsed'}}" href="#navbarMenuBlog" role="button" data-bs-toggle="collapse" data-bs-target="#navbarMenuBlog" aria-expanded=" {{ ($activePage == 'usuarios')? 'true': 'false'}}" aria-controls="navbarMenuBlog">
                             <i class="bi-file-richtext nav-icon"></i>
