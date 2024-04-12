@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-layout.page>
-        <x-slot name="titulo">Informes de Oferta</x-slot>
+        <x-slot name="titulo">Informes del Tiempo de Fijacion del Precio</x-slot>
         <x-slot name="boton"></x-slot>
         <x-slot name="indicadores"></x-slot>
         <x-slot name="cuerpo">

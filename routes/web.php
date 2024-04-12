@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboardEncuestaSucG/{tipo}/{fecha_inicio}/{fecha_fin}', 'DashboardController@getEncustaSuc');
 
     ////////////////////// end  //////////////////////////////////
-     Route::resource('sucursales', TblSucursaleController::class)->name('sucursales', '*');
+    Route::resource('sucursales', TblSucursaleController::class)->name('sucursales', '*');
     Route::get('sucursalesL', 'TblSucursaleController@getSucursales');
     
     Route::resource('encuestas', TblEncuestaController::class)->name('encuestas', '*');
@@ -87,11 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('helper/{id}/visto', 'HelperController@notificaciones')->name('helper.visto');
 
      ////////////////////// llamadas //////////////////////////
-     Route::get('call/{id}', 'CallsController@index')->name('call');
-     Route::post('call_token', 'CallsController@newToken')->name('call_token');
-     Route::get('llamadas/{id}', 'CallsController@getLlamadas')->name('llamadas');
-     Route::post('llamar', 'CallsController@setInicioLlamadas')->name('llamar');
-     Route::post('llamar_fin', 'CallsController@setFinLlamadas')->name('llamar_fin');
+    Route::get('call/{id}', 'CallsController@index')->name('call');
+    Route::post('call_token', 'CallsController@newToken')->name('call_token');
+    Route::get('llamadas/{id}', 'CallsController@getLlamadas')->name('llamadas');
+    Route::post('llamar', 'CallsController@setInicioLlamadas')->name('llamar');
+    Route::post('llamar_fin', 'CallsController@setFinLlamadas')->name('llamar_fin');
      /////////////////////////////////////////////////////////
 
       // SOLICITAR EVALUACION //
@@ -103,14 +103,22 @@ Route::group(['middleware' => 'auth'], function () {
     // VENTA ONLINE //
     Route::get('/venta_online', 'VentaOnlineController@index')->name('venta_online.index');
 
-     // cuentas por pagar y cuentas por cobrar //
-     Route::get('/analisis_de_capturas', 'InformesController@index_analisis_de_capturas')->name('analisis_de_capturas');
-     Route::get('/con_precio', 'InformesController@index_con_precio')->name('con_precio');
-     Route::get('/evaluaciones_modificadas', 'InformesController@index_evaluaciones_modificadas')->name('evaluaciones_modificadas');
-     Route::get('/evaluaciones_por_venta', 'InformesController@index_evaluaciones_por_venta')->name('evaluaciones_por_venta');
-     Route::get('/ofertas', 'InformesController@index_ofertas')->name('ofertas');
-     Route::get('/tiempo_de_masa', 'InformesController@index_tiempo_de_masa')->name('tiempo_de_masa');
-     Route::get('/tipo_de_evaluacion', 'InformesController@index_tipo_de_evaluacion')->name('tipo_de_evaluacion');
+     // INFORMES//
+    Route::get('/analisis_de_capturas', 'InformesController@index_analisis_de_capturas')->name('analisis_de_capturas');
+
+    Route::get('/con_precio', 'InformesController@index_con_precio')->name('con_precio');
+
+    Route::get('/evaluaciones_modificadas', 'InformesController@index_evaluaciones_modificadas')->name('evaluaciones_modificadas');
+
+    Route::get('/evaluaciones_por_venta', 'InformesController@index_evaluaciones_por_venta')->name('evaluaciones_por_venta');
+
+    Route::get('/ofertas', 'InformesController@index_ofertas')->name('ofertas');
+    
+    Route::get('/tiempo_mesa', 'InformesController@index_tiempo_mesa')->name('tiempo_mesa');
+
+    Route::get('/informes_vehiculos', 'InformesController@index_informes_vehiculos')->name('informes_vehiculos');
+    
+    Route::get('/tipo_evaluaciones', 'InformesController@index_tipo_evaluaciones')->name('tipo_evaluaciones');
     
 
 

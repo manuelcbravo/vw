@@ -33,24 +33,28 @@ class InformesController extends Controller
         return view('pages.informes.evaluaciones_por_venta.index', ['active' => 'evaluaciones_por_venta']);
 
     }
-    public function index_oferta()
-    {
-        return view('pages.informes.oferta.index', ['active' => 'oferta']);
-
-    }
-    public function index_tiempo_de_mesa()
-    {
-        return view('pages.informes.tiempo_de_mesa.index', ['active' => 'tiempo_de_mesa']);
-
-    }
-    public function index_tipo_de_evaluacion()
-    {
-        return view('pages.informes.tipo_de_evaluacion.index', ['active' => 'tipo_de_evaluacion']);
-
-    }
+    
     public function create()
     {
         
+    }
+    public function index_ofertas()
+{
+    return view('pages.informes.ofertas.index', ['active' => 'ofertas']);
+}
+public function index_tipo_evaluaciones()
+{
+    return view('pages.informes.tiempo_evaluaciones.index', ['active' => 'tiempo_evaluaciones']);
+}
+public function index_tiempo_mesa()
+    {
+        return view('pages.informes.tiempo_mesa.index', ['active' => 'tiempo_mesa']);
+
+    }
+    public function index_informes_vehiculos()
+    {
+        return view('pages.informes.informes_vehiculos.index', ['active' => 'informes_vehiculos']);
+
     }
     
 
